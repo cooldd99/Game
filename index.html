@@ -1,132 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Search</title>
-
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0b0f14;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-header {
-    margin-top: 80px;
-    text-align: center;
-}
-
-h1 {
-    font-size: 42px;
-    margin-bottom: 5px;
-}
-
-p {
-    opacity: 0.7;
-}
-
-.search-box {
-    margin-top: 30px;
-    display: flex;
-    width: 90%;
-    max-width: 700px;
-}
-
-input {
-    flex: 1;
-    padding: 15px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    border-radius: 10px 0 0 10px;
-}
-
-button {
-    padding: 15px 20px;
-    border: none;
-    background: #4f7cff;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 0 10px 10px 0;
-}
-
-button:hover {
-    background: #3a66ff;
-}
-
-.shortcuts {
-    margin-top: 20px;
-}
-
-.shortcuts button {
-    margin: 5px;
-    background: #1a2433;
-    border: 1px solid #2a3a52;
-    border-radius: 8px;
-}
-
-#results {
-    width: 90%;
-    max-width: 1000px;
-    margin-top: 30px;
-}
-
-iframe {
-    width: 100%;
-    height: 75vh;
-    border: none;
-    border-radius: 12px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrivateSearch - Privacy First Search Engine</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🔒 PrivateSearch</h1>
+                <p class="tagline">Search privately, no history stored</p>
+            </div>
+        </header>
 
-<header>
-    <h1>🔒 Nova Search</h1>
-    <p>Private. Fast. No tracking.</p>
-</header>
+        <!-- Search Bar -->
+        <div class="search-section">
+            <form id="searchForm" class="search-form">
+                <div class="search-container">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Search the web privately..."
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="search-btn">🔍 Search</button>
+                </div>
+            </form>
+        </div>
 
-<div class="search-box">
-    <input id="searchBox" placeholder="Search privately..."
-    onkeydown="if(event.key==='Enter') search()">
-    <button onclick="search()">Search</button>
-</div>
+        <!-- Info Section (shown on initial load) -->
+        <div id="infoSection" class="info-section">
+            <div class="info-card">
+                <h2>🛡️ Your Privacy Matters</h2>
+                <p>This search engine:</p>
+                <ul>
+                    <li>✓ Doesn't store your search history</li>
+                    <li>✓ Displays results directly within this site</li>
+                    <li>✓ Uses DuckDuckGo's privacy-focused API</li>
+                    <li>✓ No tracking or profiling</li>
+                    <li>✓ No redirects or external tracking</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="shortcuts">
-    <button onclick="quick('youtube')">YouTube</button>
-    <button onclick="quick('wikipedia')">Wikipedia</button>
-    <button onclick="quick('github')">GitHub</button>
-    <button onclick="quick('reddit')">Reddit</button>
-</div>
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Searching...</p>
+        </div>
 
-<div id="results"></div>
+        <!-- Results Section -->
+        <div id="resultsSection" class="results-section hidden">
+            <div class="results-header">
+                <p id="resultsInfo">Results for: <strong id="queryDisplay"></strong></p>
+                <button id="newSearchBtn" class="new-search-btn">← New Search</button>
+            </div>
+            <div id="resultsList" class="results-list"></div>
+            <div id="errorMessage" class="error-message hidden"></div>
+        </div>
+    </div>
 
-<script>
-function search() {
-    let q = document.getElementById("searchBox").value;
-    if (!q) return;
-
-    document.getElementById("results").innerHTML = `
-        <iframe src="https://duckduckgo.com/?q=${encodeURIComponent(q)}"></iframe>
-    `;
-}
-
-function quick(site) {
-    let q = document.getElementById("searchBox").value || "";
-    let query = site + " " + q;
-
-    document.getElementById("results").innerHTML = `
-        <iframe src="https://duckduckgo.com/?q=${encodeURIComponent(query)}"></iframe>
-    `;
-}
-</script>
-
+    <script src="script.js"></script>
 </body>
 </html>
