@@ -40,7 +40,7 @@
                 <ul>
                     <li>✓ Doesn't store your search history</li>
                     <li>✓ Displays results directly within this site</li>
-                    <li>✓ Uses DuckDuckGo's privacy-focused API</li>
+                    <li>✓ Uses DuckDuckGo's privacy-focused engine</li>
                     <li>✓ No tracking or profiling</li>
                     <li>✓ No redirects or external tracking</li>
                 </ul>
@@ -53,14 +53,13 @@
             <p>Searching...</p>
         </div>
 
-        <!-- Results Section -->
+        <!-- Results Section with iframe -->
         <div id="resultsSection" class="results-section hidden">
             <div class="results-header">
                 <p id="resultsInfo">Results for: <strong id="queryDisplay"></strong></p>
                 <button id="newSearchBtn" class="new-search-btn">← New Search</button>
             </div>
-            <div id="resultsList" class="results-list"></div>
-            <div id="errorMessage" class="error-message hidden"></div>
+            <iframe id="resultsFrame" src="" class="results-iframe"></iframe>
         </div>
     </div>
 
