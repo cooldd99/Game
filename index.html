@@ -28,12 +28,25 @@
             flex: 1;
             border: none;
             width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <iframe id="duckduckgo" src="https://duckduckgo.com/" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation allow-top-navigation-by-user-activation"></iframe>
+        <iframe id="duckduckgo" src="https://duckduckgo.com/" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"></iframe>
     </div>
+    <script>
+        // Handle iframe communication and ensure it loads properly
+        window.addEventListener('load', function() {
+            const iframe = document.getElementById('duckduckgo');
+            // Try to reload if needed
+            if (!iframe.contentDocument || !iframe.contentDocument.body) {
+                setTimeout(() => {
+                    iframe.src = iframe.src;
+                }, 1000);
+            }
+        });
+    </script>
 </body>
 </html>
