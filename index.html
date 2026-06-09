@@ -3,66 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PrivateSearch - Privacy First Search Engine</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>DuckDuckGo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #fff;
+            color: #333;
+        }
+
+        .container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="logo">
-                <h1>🔒 PrivateSearch</h1>
-                <p class="tagline">Search privately, no history stored</p>
-            </div>
-        </header>
-
-        <!-- Search Bar -->
-        <div class="search-section">
-            <form id="searchForm" class="search-form">
-                <div class="search-container">
-                    <input 
-                        type="text" 
-                        id="searchInput" 
-                        class="search-input" 
-                        placeholder="Search the web privately..."
-                        autocomplete="off"
-                    >
-                    <button type="submit" class="search-btn">🔍 Search</button>
-                </div>
-            </form>
-        </div>
-
-        <!-- Info Section (shown on initial load) -->
-        <div id="infoSection" class="info-section">
-            <div class="info-card">
-                <h2>🛡️ Your Privacy Matters</h2>
-                <p>This search engine:</p>
-                <ul>
-                    <li>✓ Doesn't store your search history</li>
-                    <li>✓ Displays results directly within this site</li>
-                    <li>✓ Uses DuckDuckGo's privacy-focused engine</li>
-                    <li>✓ No tracking or profiling</li>
-                    <li>✓ No redirects or external tracking</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Loading Indicator -->
-        <div id="loadingIndicator" class="loading hidden">
-            <div class="spinner"></div>
-            <p>Searching...</p>
-        </div>
-
-        <!-- Results Section with iframe -->
-        <div id="resultsSection" class="results-section hidden">
-            <div class="results-header">
-                <p id="resultsInfo">Results for: <strong id="queryDisplay"></strong></p>
-                <button id="newSearchBtn" class="new-search-btn">← New Search</button>
-            </div>
-            <iframe id="resultsFrame" src="" class="results-iframe"></iframe>
-        </div>
+        <iframe id="duckduckgo" src="https://duckduckgo.com/" allowfullscreen></iframe>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
