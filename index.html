@@ -126,6 +126,11 @@
         const searchBtn = document.getElementById('searchBtn');
         const resultsContainer = document.getElementById('resultsContainer');
 
+        // Prevent browser history from storing search queries
+        window.addEventListener('beforeunload', () => {
+            searchInput.value = '';
+        });
+
         searchBtn.addEventListener('click', performSearch);
         searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') performSearch();
@@ -139,7 +144,10 @@
 
             try {
                 // Using DuckDuckGo's API endpoint
-                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&pretty=1`);
+                const response = await fetch(`https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json&pretty=1`, {
+                    // Prevent credentials from being sent
+                    credentials: 'omit'
+                });
                 const data = await response.json();
 
                 let html = '';
@@ -150,7 +158,7 @@
                         <div class="result">
                             <div class="result-title">${data.Heading || 'Answer'}</div>
                             <div class="result-snippet">${data.AbstractText}</div>
-                            ${data.AbstractURL ? `<div class="result-url"><a href="${data.AbstractURL}" target="_blank">${data.AbstractURL}</a></div>` : ''}
+                            ${data.AbstractURL ? `<div class="result-url"><a href="${data.AbstractURL}" target="_blank" rel="noopener noreferrer">${data.AbstractURL}</a></div>` : ''}
                         </div>
                     `;
                 }
@@ -161,7 +169,7 @@
                         if (topic.FirstURL) {
                             html += `
                                 <div class="result">
-                                    <div class="result-title"><a href="${topic.FirstURL}" target="_blank" style="color: #1e90ff; text-decoration: none;">${topic.Text || topic.FirstURL}</a></div>
+                                    <div class="result-title"><a href="${topic.FirstURL}" target="_blank" rel="noopener noreferrer" style="color: #1e90ff; text-decoration: none;">${topic.Text || topic.FirstURL}</a></div>
                                     ${topic.Icon ? `<img src="${topic.Icon.URL}" style="max-width: 16px; margin-right: 5px;">` : ''}
                                     <div class="result-snippet">${topic.Result || ''}</div>
                                 </div>
@@ -176,15 +184,24 @@
                 }
 
                 resultsContainer.innerHTML = html || '<div class="error">No results found</div>';
+                
+                // Clear input after search (prevents history storage)
+                setTimeout(() => {
+                    searchInput.value = '';
+                }, 100);
+                
             } catch (error) {
                 resultsContainer.innerHTML = `<div class="error">Error performing search: ${error.message}</div>`;
+                searchInput.value = '';
             }
         }
 
         async function fetchWebResults(query) {
             try {
                 // Using Searx API as fallback (public instance)
-                const response = await fetch(`https://searx.be/search?q=${encodeURIComponent(query)}&format=json`);
+                const response = await fetch(`https://searx.be/search?q=${encodeURIComponent(query)}&format=json`, {
+                    credentials: 'omit'
+                });
                 const data = await response.json();
 
                 let html = '';
@@ -192,7 +209,7 @@
                     data.results.slice(0, 10).forEach(result => {
                         html += `
                             <div class="result">
-                                <div class="result-title"><a href="${result.url}" target="_blank" style="color: #1e90ff; text-decoration: none;">${result.title}</a></div>
+                                <div class="result-title"><a href="${result.url}" target="_blank" rel="noopener noreferrer" style="color: #1e90ff; text-decoration: none;">${result.title}</a></div>
                                 <div class="result-url">${result.url}</div>
                                 <div class="result-snippet">${result.content}</div>
                             </div>
@@ -205,9 +222,16 @@
             }
         }
 
-        // Focus on page load
+        // Focus on page load and clear any autofill
         window.addEventListener('load', () => {
             searchInput.focus();
+            searchInput.value = '';
+        });
+
+        // Use History API to prevent history entries
+        window.addEventListener('popstate', (e) => {
+            searchInput.value = '';
+            resultsContainer.innerHTML = '';
         });
     </script>
 </body>
