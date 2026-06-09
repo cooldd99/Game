@@ -4,49 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DuckDuckGo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #fff;
-            color: #333;
-        }
-
-        .container {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        iframe {
-            flex: 1;
-            border: none;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
-        <iframe id="duckduckgo" src="https://duckduckgo.com/" sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation"></iframe>
-    </div>
+<body style="margin:0; padding:0; overflow:hidden;">
     <script>
-        // Handle iframe communication and ensure it loads properly
-        window.addEventListener('load', function() {
-            const iframe = document.getElementById('duckduckgo');
-            // Try to reload if needed
-            if (!iframe.contentDocument || !iframe.contentDocument.body) {
-                setTimeout(() => {
-                    iframe.src = iframe.src;
-                }, 1000);
-            }
-        });
+        // Redirect to DuckDuckGo
+        window.location.href = 'https://duckduckgo.com/';
     </script>
+    <p>Redirecting to DuckDuckGo...</p>
 </body>
 </html>
