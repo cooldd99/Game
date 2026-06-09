@@ -36,9 +36,10 @@ function displayResults(query) {
     resultsSection.classList.remove('hidden');
     queryDisplay.textContent = query;
     
-    // Load DuckDuckGo search results in iframe
+    // Build DuckDuckGo search URL that displays results directly
+    // Using the search parameter with lite mode for better iframe compatibility
     const encodedQuery = encodeURIComponent(query);
-    resultsFrame.src = `https://duckduckgo.com/?q=${encodedQuery}&ia=web`;
+    resultsFrame.src = `https://duckduckgo.com/?q=${encodedQuery}&ia=web&t=privatesearch`;
 }
 
 function resetSearch() {
