@@ -60,6 +60,15 @@
                 </div>
             </div>
         </div>
+
+        <!-- Content Viewer Modal/Frame -->
+        <div id="contentViewer" class="content-viewer hidden">
+            <div class="content-viewer-header">
+                <button class="close-viewer" onclick="closeViewer()">← Back to Results</button>
+                <div class="viewer-url" id="viewerUrl"></div>
+            </div>
+            <iframe id="contentFrame" class="content-frame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+        </div>
     </div>
 
     <script src="script.js"></script>
